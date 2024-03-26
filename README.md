@@ -1,1 +1,3 @@
-# DSCI-532_2024_10_vanweather
+# VanWeather - Vancouver Climate Extremes Dashboard
+
+Welcome to the VanWeather, an interactive tool designed to analyze and visualize weather patterns in Vancouver for indications of increasing extremity. Built with the powerful Dash framework, this dashboard integrates historical and recent meteorological data to offer users a comprehensive view of Vancouver's climate trends. This dashboard serves as a valuable resource for environmentalists, researchers, students, and anyone interested in understanding the evolving climate patterns in Vancouver. It aims not only to inform but also to foster greater awareness and discussion about climate change and its local impacts.
