@@ -34,19 +34,19 @@ Below are the list of variables, grouped into important factors affecting how we
 Using these variables or a combination of these variables, we will conduct visualization and derive better understanding 
 on how exactly Vancouver weather has really changed over the past 50 years. 
 
-Below are the definitions of variables extracted from the API that could be used for visualization:
-"weather_code": The most severe weather condition on a given day. Code given in WMO code (for example, 22 means snow, 29 means thunderstorm)
-"temperature_2m_xxx": Daily air temperature at 2 meters above ground. Default unit is in Celcius
-"apparent_temperature_xxx": Daily apparent temperature. Default unit is in Celcius
-"sunrise", "sunset": time for sun rise and sun set in ISO8601
-"precipitation": Sum of daily precipitation (including rain, showers and snowfall). Unit in mm 
-"rain_sum": Sum of daily rain in mm
-"snow_sum": Sum of daily snow in cm
-"preciptation_hours": The number of hours with rain
-"shortwave_radiation_sum": 	The sum of solar radiation on a given day in Megajoules
-"et0_fao_evapotranspiration": Daily sum of ET₀ Reference Evapotranspiration of a well watered grass field in mm. 
-"wind_speed_10m_max", "wind_gusts_10m_max": Maximum wind speed and gusts on a day
-"wind_direction_10m_dominant": Dominant wind direction
+Below are the detailed definitions of variables extracted from the API that could be used for visualization:
+- "weather_code": The most severe weather condition on a given day. Code given in WMO code (for example, 22 = snow, 29 = thunderstorm)
+- "temperature_2m_xxx": Daily air temperature at 2 meters above ground. Default unit is in Celcius
+- "apparent_temperature_xxx": Daily apparent temperature. Default unit is in Celcius
+- "sunrise", "sunset": time for sun rise and sun set in ISO8601
+- "precipitation": Sum of daily precipitation (including rain, showers and snowfall). Unit in mm 
+- "rain_sum": Sum of daily rain in mm
+- "snow_sum": Sum of daily snow in cm
+- "preciptation_hours": The number of hours with rain
+- "shortwave_radiation_sum": 	The sum of solar radiation on a given day in Megajoules
+- "et0_fao_evapotranspiration": Daily sum of ET₀ Reference Evapotranspiration of a well watered grass field in mm. 
+- "wind_speed_10m_max", "wind_gusts_10m_max": Maximum wind speed and gusts on a day
+- "wind_direction_10m_dominant": Dominant wind direction
 
 
 ## Research questions and usage scenarios
