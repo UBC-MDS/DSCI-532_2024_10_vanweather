@@ -2,11 +2,11 @@
 
 ## Motivation and Purpose
 
-In a few sentences, provide motivation for why you are creating a dashboard:
+Our role: Environmental advocacy group
 
-- Who is your target audience, and what role are you embodying?
-- What is the problem the target audience is facing and why is it important to solve?
-- How can your dashboard assist in solving this problem for the intended target audience?
+Target audience: Residents, policymakers, and researchers interested in Vancouver's climate trends
+
+As climate change increasingly impacts Vancouver's weather patterns, understanding and addressing climate extremes becomes crucial for the city's ability to adapt and remain sustainable. However, the lack of accessible, comprehensive tools to analyze and visualize these extremes hampers informed decision-making and proactive measures. Our VanWeather dashboard aims to tackle this challenge by providing an interactive platform that integrates historical and recent meteorological data. This allows users to identify trends and patterns indicative of increasing extremity in Vancouver's climate. By arming users with insights into the city's climate dynamics, the dashboard facilitates informed discussions, policy formulation, and community actions to address and adapt to the impacts of climate change at the local level.
 
 
 ## Description of the data
