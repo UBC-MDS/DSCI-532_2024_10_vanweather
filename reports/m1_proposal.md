@@ -22,12 +22,12 @@ if you wish.
 
 ## Research questions and usage scenarios
 
-
-The purpose of this section is to get you to think in more detail about
-how your target audience will use the app you're designing
-and to account for these detailed needs in the proposal.
-
-
+Dr. Emily Wong is a climate scientist specializing in the impacts of climate change on urban environments. Her focus is on analyzing long-term weather trends to understand how global warming is affecting local climates, particularly in metropolitan areas like Vancouver.
+Through our app, Dr. Wong can access a comprehensive dashboard titled "Vancouver Weather Analysis - 50 Year Trends." This tool allows her to systematically examine various weather parameters, including temperature, precipitation, wind patterns, and sunlight changes over the last five decades. She starts her investigation by exploring temperature trends, utilizing our app to visualize maximum, minimum, and mean temperature changes, which confirms her suspicion of a gradual increase in local temperatures.
+Next, Dr. Wong shifts her focus to precipitation data within our app. She compares historical rainfall and snowfall data, identifying a trend of decreasing snowfall and increasing rainfall, which aligns with her hypotheses about climate change's effects on local weather patterns.
+Our app also enables Dr. Wong to analyze wind speed and direction changes over time. She examines these variables to understand their influence on Vancouver's weather dynamics, finding evidence of increasing wind speeds and changes in prevalent wind directions.
+Dr. Wong uses our app to study daylight and solar radiation trends. This analysis provides her with additional insights into the broader impacts of climate change, such as shifts in the duration of sunlight that could affect ecosystems and urban life.
+Throughout her research, our app proves invaluable, offering Dr. Wong a robust platform for data visualization and analysis. By facilitating easy access to complex datasets and providing comprehensive visualizations, our app empowers her to derive meaningful conclusions and recommendations for urban planning and climate policy. Her findings, supported by the app’s extensive data and analytical capabilities, contribute significantly to the dialogue on urban climate resilience and adaptation strategies.
 
 
 ## App sketch & brief description
