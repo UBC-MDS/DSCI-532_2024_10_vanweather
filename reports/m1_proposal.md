@@ -61,10 +61,6 @@ Throughout her research, our app proves invaluable, offering Dr. Wong a robust p
 
 ## App sketch & brief description
 
-Create a sketch of what you envision your app to look like.
-Your sketch can be hand-drawn
-or put together using a graphics editor or
-slide show software.
-The sketch should be saved as `img/sketch.png` and linked in this section of the proposal
-so that the image shows up when reading the proposal on GitHub.
+![](../img/sketch.png "App Sketch")
 
+The application features a homepage displaying comprehensive climate change statistics for a period chosen by the user. This includes a graphical representation of annual temperature fluctuations and four adaptable graphs illustrating variations in temperature, precipitation, wind, and solar conditions over the last 50 years. On the left side of the page, filter bars enable users to adjust the date range for each of the four weather variable graphs using a 'Date' filter. Additionally, there's a 'Time Aggregation Level' dropdown menu, offering options like Year, Quarter, Month, and Day, to modify the time frame for these graphs. Moreover, each graph is paired with its own dropdown list, allowing users to select specific variables for display. For example, in the 'Temperature Variables' dropdown, options include 'Temperature Max', 'Temperature Min', 'Temperature Mean', and 'Apparent Temperature Max'. Color legends are provided to facilitate comparison between different variables.
