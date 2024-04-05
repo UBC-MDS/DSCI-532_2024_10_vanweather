@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 #Read the CSV file
 df = pd.read_csv('data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1')
