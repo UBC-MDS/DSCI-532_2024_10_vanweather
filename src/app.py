@@ -1,25 +1,52 @@
 from dash import Dash, dcc, callback, Output, Input, html
 import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
+import pandas as pd
+import plotly.graph_objs as go
+import plotly.express as px
+import matplotlib.pyplot as plt
 
 
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
+#Read the CSV file
+df = pd.read_csv('data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1')
+df['date'] = pd.to_datetime(df['date'])
+df['year'] = df['date'].dt.year
+
 # Layout
 app.layout = dbc.Container(
     [
+    #html.Div([html.H1("VanWeather - Vancouver Climate Extreams Dash", style={'color': 'green', 'font-size': '24px', 'text-align': 'center'})]),
+    dbc.Row(
+            dbc.Col(
+                html.H1("VanWeather - Vancouver Climate Extremes Dash", style={'color': 'navy', 'font-size': '24px', 'text-align': 'center'}),
+                width={'size': 12, 'offset': 0}
+            ),
+            justify="center"
+    ),
     dbc.Row([
-
-        dbc.Col([dbc.Row(html.Div("Filters")), 
-                dbc.Row(html.Div("Filter1")),
-                dbc.Row(html.Div("Filter2")),
-                dbc.Row(html.Div("Filter3")),
-        ],
-                md=2),
+            dbc.Col(
+                [
+                    html.Label('Date',style={'margin-bottom': '10px', 'display': 'block'}),
+                    dcc.RangeSlider(
+                        id='year-slider',
+                        min=int(df['year'].min()),
+                        max=int(df['year'].max()),
+                        step=1,
+                        marks={year: str(year) for year in range(int(df['year'].min()), int(df['year'].max()) + 1, 10)},
+                        value=[int(df['year'].min()), int(df['year'].max())],
+                        tooltip={'always_visible': True, 'placement': 'bottom'} 
+                    ),
+                    html.Div("Filter1"),
+                    html.Div("Filter2"),
+                    html.Div("Filter3"),
+                ], width=3), 
+                #md=2),
         dbc.Col(
             [
-                dbc.Row(html.Div("VanWeather - Vancouver Climate Extreams Dash")),
+                #dbc.Row(html.Div("VanWeather - Vancouver Climate Extreams Dash")),
                 dbc.Row([
                     dbc.Col([
                         html.Div([
@@ -30,7 +57,10 @@ app.layout = dbc.Container(
                             style={'display': 'flex', 'justify-content': 'space-around', 'align-items': 'center'}
                         ),
                     ]),
-                    dbc.Col(html.Div("Static time series")),
+                dbc.Col(
+                dcc.Graph(id='temperature-plot'),
+                width=9
+            ),
                 ]),
                 dbc.Col([
                     dbc.Row([
@@ -49,7 +79,15 @@ app.layout = dbc.Container(
 )
 
 # Server side callbacks/reactivity
-# ...
+@app.callback(
+    Output('temperature-plot', 'figure'),
+    [Input('year-slider', 'value')]
+)
+def update_temperature_plot(year_range):
+    filtered_df = df[(df['year'] >= year_range[0]) & (df['year'] <= year_range[1])]
+    fig = px.line(filtered_df, x='year', y='apparent_temperature_mean', title='Temperature Over years')
+    fig.update_layout(xaxis_title='Year', yaxis_title='Temperature')
+    return fig
 
 # Run the app/dashboard
 if __name__ == '__main__':
