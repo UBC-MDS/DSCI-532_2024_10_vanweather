@@ -1,44 +1,75 @@
+
+#%%
 import pandas as pd
-import altair as alt
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-# Load the data
 df = pd.read_csv("../data/raw/van_weather_1974-01-01_2024-03-15.csv", index_col='date', parse_dates=True)
+df.shape
+# Time aggregator input ['D', 'W', 'ME', 'YE']
+# Start time in YYYY-MM-DD
+# End time in YYYY-MM-DD
 
-def filter_for_month(column_name, month, start_year, end_year):
-    # Create a boolean mask where the month is May and the year is within the specified range
-    mask = (df.index.month == month) & (df.index.year >= start_year) & (df.index.year <= end_year)
-    filtered_df = df.loc[mask]
-
-    if column_name not in filtered_df.columns:
-        raise ValueError(f"Column {column_name} does not exist in the DataFrame")
-
-    # Resample the data by year and take the mean for each May
-    aggregated_df = filtered_df[column_name].resample('A').mean()
-    return aggregated_df.reset_index()
+def filter_aggregation_col(column_name, agg_time, start_time, end_time):
+    start_time = pd.to_datetime(start_time)
+    end_time = pd.to_datetime(end_time)
 
 
-df_may = filter_for_month('temperature_2m_max', 5, 2000, 2022)
+    # Filter DataFrame based on time range
+    filtered_df = df.loc[start_time:end_time]
 
-# Create the Altair line chart
-chart = alt.Chart(df_may).mark_line(
-    point=True,  # Add points to the line
-    color='steelblue',  # Line color
-    size=3  # Line thickness
-).encode(
-    x=alt.X('date:T', title='Date'),  # Specify temporal type
-    y=alt.Y('temperature_2m_max:Q', title='Temperature (°C)'),  # Specify quantitative type
-    tooltip=['date:T', 'temperature_2m_max:Q']
-).properties(
-    title='Average Temperature in May (2000-2022)',
-    width=800,
-    height=400
-).configure_title(
-    fontSize=20,
-    font='Courier',
-    anchor='start',
-    color='gray'
-).configure_view(
-    strokeOpacity=0  # Remove the border around the chart
-)
+    # Aggregate the specified column based on agg_time
+    aggregated_df = filtered_df[column_name].resample(agg_time).mean()
 
-chart
+    # Clear the data if the year is chosen and a full year does not exist for start/end year
+    if agg_time == 'YE':
+        # Find the start year and end year
+        start_year = start_time.year
+        end_year = end_time.year
+
+        # Check if the start year and end year form a full year range
+        if (start_time != pd.Timestamp(f"{start_year}-01-01")):  
+            aggregated_df = aggregated_df.iloc[1:]
+        
+        if (end_time != pd.Timestamp(f"{end_year}-12-31")):
+            aggregated_df = aggregated_df.iloc[:-1]
+    
+    return aggregated_df
+df_agg = filter_aggregation_col('temperature_2m_max', 'YE', '1990-01-15', '2024-03-01')
+
+
+def time_series_plot_altair(df, column_name='temperature_2m_max'):
+    # Ensure the dataframe has the expected date column after resetting the index
+    df = df.reset_index().rename(columns={df.index.name: 'date'})
+    
+    # Create the Altair line chart
+    chart = alt.Chart(df).mark_line(
+        point=True,  # Add points to the line for each data point
+        color='steelblue',  # Line color
+        size=2  # Line thickness
+    ).encode(
+        x=alt.X('date:T', title='Date'),  # Temporal axis (time)
+        y=alt.Y(f'{column_name}:Q', title='Temperature (°C)'),  # Quantitative axis (the data)
+        tooltip=[alt.Tooltip('date:T', title='Date'), alt.Tooltip(f'{column_name}:Q', title='Temperature (°C)')]  # Tooltip for interactivity
+    ).properties(
+        title=f'{column_name.capitalize()} over Time',  # Chart title
+        width=800,  # Width of the chart
+        height=400  # Height of the chart
+    ).configure_title(
+        fontSize=20,
+        font='Courier',
+        anchor='start',
+        color='gray'
+    ).configure_view(
+        strokeOpacity=0  # Remove the border around the chart
+    )
+    
+    return chart
+
+
+
+# Now call the function and pass the DataFrame
+alt_chart = time_series_plot_altair(df_agg)
+alt_chart
+
+# %%
