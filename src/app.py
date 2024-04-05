@@ -29,7 +29,7 @@ app.layout = dbc.Container(
     dbc.Row([
             dbc.Col(
                 [
-                    html.Label('Date',style={'margin-bottom': '10px', 'display': 'block'}),
+                    html.Label('Date',style={'margin-bottom': '10px', 'display': 'block' }),
                     dcc.RangeSlider(
                         id='year-slider',
                         min=int(df['year'].min()),
@@ -37,7 +37,7 @@ app.layout = dbc.Container(
                         step=1,
                         marks={year: str(year) for year in range(int(df['year'].min()), int(df['year'].max()) + 1, 10)},
                         value=[int(df['year'].min()), int(df['year'].max())],
-                        tooltip={'always_visible': True, 'placement': 'bottom'} 
+                        tooltip={'always_visible': True, 'placement': 'bottom'}
                     ),
                     html.Div("Filter1"),
                     html.Div("Filter2"),
@@ -58,8 +58,9 @@ app.layout = dbc.Container(
                         ),
                     ]),
                 dbc.Col(
-                dcc.Graph(id='temperature-plot'),
-                width=9
+                dcc.Graph(id='temperature-plot', config={'displayModeBar': True}),
+                width=9,
+                style={'background-color': 'white', 'border': '1px solid lightgray', 'border-radius': '5px', 'padding': '10px'}
             ),
                 ]),
                 dbc.Col([
@@ -85,8 +86,15 @@ app.layout = dbc.Container(
 )
 def update_temperature_plot(year_range):
     filtered_df = df[(df['year'] >= year_range[0]) & (df['year'] <= year_range[1])]
-    fig = px.line(filtered_df, x='year', y='apparent_temperature_mean', title='Temperature Over years')
-    fig.update_layout(xaxis_title='Year', yaxis_title='Temperature')
+    resampled_df = filtered_df.resample('Y', on='date').mean().reset_index()
+    
+    fig = px.line(resampled_df, x='year', y='apparent_temperature_mean', title='Temperature Over Years')
+    fig.update_xaxes(title_text='Year', showgrid=True)
+    fig.update_yaxes(title_text='Temperature', showgrid=True)
+    fig.update_layout(plot_bgcolor='white', paper_bgcolor='white',
+            xaxis=dict(showline=True, linecolor='black'),
+            yaxis=dict(showline=True, linecolor='black')),
+    fig.update_layout(yaxis=dict(range=[filtered_df['apparent_temperature_mean'].min(), filtered_df['apparent_temperature_mean'].max()]))
     return fig
 
 # Run the app/dashboard
