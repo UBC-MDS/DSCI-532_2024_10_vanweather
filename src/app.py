@@ -5,15 +5,69 @@ import pandas as pd
 import plotly.graph_objs as go
 import plotly.express as px
 import matplotlib.pyplot as plt
+from datetime import datetime
+import altair as alt
 
 
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 #Read the CSV file
-df = pd.read_csv('data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1')
-df['date'] = pd.to_datetime(df['date'])
+df = pd.read_csv('data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1', index_col='date', parse_dates=True)
+df['date'] = pd.to_datetime(df.index)
 df['year'] = df['date'].dt.year
+
+def filter_aggregation_col(df, column_name, agg_time="YE", start_time="2000-01-01", end_time="2023-01-01"):
+    start_time = pd.to_datetime(start_time)
+    end_time = pd.to_datetime(end_time)
+
+    # Filter DataFrame based on time range
+    filtered_df = df.loc[start_time:end_time]
+
+    # Aggregate the specified column based on agg_time
+    aggregated_df = filtered_df[column_name].resample(agg_time).mean()
+
+    # Clear the data if the year is chosen and a full year does not exist for start/end year
+    if agg_time == 'YE':
+        # Find the start year and end year
+        start_year = start_time.year
+        end_year = end_time.year
+
+        # Check if the start year and end year form a full year range
+        if (start_time != pd.Timestamp(f"{start_year}-01-01")):
+            aggregated_df = aggregated_df.iloc[1:]
+
+        if (end_time != pd.Timestamp(f"{end_year}-12-31")):
+            aggregated_df = aggregated_df.iloc[:-1]
+
+    return aggregated_df
+
+def time_series_plot_altair(df, column_name='temperature_2m_max'):
+    # Ensure the dataframe has the expected date column after resetting the index
+    df = df.reset_index().rename(columns={df.index.name: 'date'})
+
+    # Create the Altair line chart
+    chart = alt.Chart(df).mark_line(
+        point=True,  # Add points to the line for each data point
+        color='steelblue',  # Line color
+        size=2  # Line thickness
+    ).encode(
+        x=alt.X('date:T', title='Date'),  # Temporal axis (time)
+        y=alt.Y(f'{column_name}:Q', title='Temperature (°C)'),  # Quantitative axis (the data)
+        tooltip=[alt.Tooltip('date:T', title='Date'), alt.Tooltip(f'{column_name}:Q', title='Temperature (°C)')]  # Tooltip for interactivity
+    ).properties(
+        title=f'{column_name.capitalize()} over Time',  # Chart title
+        width=800,  # Width of the chart
+        height=400  # Height of the chart
+    ).configure_title(
+        fontSize=20,
+        font='Courier',
+        anchor='start',
+        color='gray'
+    ).configure_view(
+        strokeOpacity=0  # Remove the border around the chart
+    )
+    return chart
 
 # Layout
 app.layout = dbc.Container(
@@ -69,7 +123,7 @@ app.layout = dbc.Container(
                         dbc.Col(html.Div("Dynamic time series")),
                     ]),
                     dbc.Row([
-                        dbc.Col(html.Div("Dynamic time series")),
+                        dbc.Col(html.Div(dvc.Vega(id='precipitation-plot', spec={}))),
                         dbc.Col(html.Div("Dynamic time series")),
                     ])
                 ]),
@@ -85,8 +139,10 @@ app.layout = dbc.Container(
     [Input('year-slider', 'value')]
 )
 def update_temperature_plot(year_range):
-    filtered_df = df[(df['year'] >= year_range[0]) & (df['year'] <= year_range[1])]
+    # filtered_df = df[(df['year'] >= year_range[0]) & (df['year'] <= year_range[1])]
+    filtered_df = df
     resampled_df = filtered_df.resample('Y', on='date').mean().reset_index()
+    resampled_df = resampled_df[: -1]
     
     fig = px.line(resampled_df, x='year', y='apparent_temperature_mean', title='Temperature Over Years')
     fig.update_xaxes(title_text='Year', showgrid=True)
@@ -96,6 +152,27 @@ def update_temperature_plot(year_range):
             yaxis=dict(showline=True, linecolor='black')),
     fig.update_layout(yaxis=dict(range=[filtered_df['apparent_temperature_mean'].min(), filtered_df['apparent_temperature_mean'].max()]))
     return fig
+
+
+
+@app.callback(
+    Output('precipitation-plot', 'spec'),
+    [Input('year-slider', 'value')]
+)
+def update_precipitation_plot(year_range):
+    min_time = datetime(year_range[0], 1, 1)
+    max_time = datetime(year_range[1], 1, 1)
+    print(min_time, max_time)
+    filtered_df = filter_aggregation_col(df, 'precipitation_sum', "YE", min_time, max_time)
+    fig = time_series_plot_altair(filtered_df, filtered_df.name)
+    return fig.to_dict()
+
+
+# Time aggregator input ['D', 'W', 'ME', 'YE']
+# Start time in YYYY-MM-DD
+# End time in YYYY-MM-DD
+
+
 
 # Run the app/dashboard
 if __name__ == '__main__':
