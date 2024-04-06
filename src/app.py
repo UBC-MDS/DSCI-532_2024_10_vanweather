@@ -7,7 +7,7 @@ import pandas as pd
 import plotly.graph_objs as go
 import plotly.express as px
 import matplotlib.pyplot as plt
-from utils.utils import *
+from utils import *
 from datetime import date, datetime
 
 # Initiatlize the app
