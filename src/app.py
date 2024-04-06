@@ -13,14 +13,6 @@ from datetime import date, datetime
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-#Read the CSV file
-# df = pd.read_csv('../data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1')
-
-# df['date'] = pd.to_datetime(df['date'])
-# #df['year'] = df['date'].dt.year
-# df['date'] = df['date'].dt.date
-
-
 df = pd.read_csv('../data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1', index_col='date', parse_dates=True)
 df['date'] = pd.to_datetime(df.index)
 df['year'] = df['date'].dt.year
@@ -217,7 +209,7 @@ def update_temperature_plot(start_date, end_date, agg_time, var):
     [Input('dateRange', 'start_date'),
      Input('dateRange', 'end_date'),
      Input('agg_time', 'value'),
-     Input('temp_var', 'value')]
+     Input('wind_var', 'value')]
 )
 def update_wind_plot(start_date, end_date, agg_time, var):
     if not start_date:
@@ -238,7 +230,7 @@ def update_wind_plot(start_date, end_date, agg_time, var):
     [Input('dateRange', 'start_date'),
      Input('dateRange', 'end_date'),
      Input('agg_time', 'value'),
-     Input('temp_var', 'value')]
+     Input('sun_var', 'value')]
 )
 def update_solar_plot(start_date, end_date, agg_time, var):
     if not start_date:
@@ -253,8 +245,6 @@ def update_solar_plot(start_date, end_date, agg_time, var):
     filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     altplot = time_series_plot_altair(filtered_df, filtered_df.name)
     return altplot.to_dict()
-
-
 
 # Run the app/dashboard
 if __name__ == '__main__':

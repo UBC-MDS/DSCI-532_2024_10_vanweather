@@ -103,5 +103,6 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
 def generateDropDownrDiv(valueName, labelName, options=[], value=None):
     return html.Div([
         dbc.Label(labelName, className='filter_label'),
-        dcc.Dropdown(id=valueName, options=options, value=value, className='filter_input'),
+        dcc.Dropdown(id=valueName, options=options, value=value, className='filter_input', style={
+            'font-size': "80%"},),
     ])
