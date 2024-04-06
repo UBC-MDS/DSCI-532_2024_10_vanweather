@@ -14,7 +14,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 #Read the CSV file
-df = pd.read_csv('data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1', index_col='date', parse_dates=True)
+df = pd.read_csv('/Users/katherinechen/Desktop/532_lab/DSCI-532_2024_10_vanweather/data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1', index_col='date', parse_dates=True)
 df['date'] = pd.to_datetime(df.index)
 df['year'] = df['date'].dt.year
 
@@ -54,7 +54,7 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
         size=2  # Line thickness
     ).encode(
         x=alt.X('date:T', title='Date'),  # Temporal axis (time)
-        y=alt.Y(f'{column_name}:Q', title='Temperature (°C)'),  # Quantitative axis (the data)
+        y=alt.Y(f'{column_name}:Q', title=column_name.capitalize()),
         tooltip=[alt.Tooltip('date:T', title='Date'), alt.Tooltip(f'{column_name}:Q', title='Temperature (°C)')]  # Tooltip for interactivity
     ).properties(
         title=f'{column_name.capitalize()} over Time',  # Chart title
@@ -126,6 +126,18 @@ app.layout = dbc.Container(
                     dbc.Row([
                         dbc.Col(html.Div(dvc.Vega(id='precipitation-plot', spec={}))),
                         dbc.Col(html.Div("Dynamic time series")),
+                    ]),
+                    dbc.Row([
+                        dbc.Col(html.Div(dvc.Vega(id='temp-plot', spec={}))),
+                        dbc.Col(html.Div("Dynamic time series")),
+                    ]),
+                    dbc.Row([
+                        dbc.Col(html.Div(dvc.Vega(id='wind-plot', spec={}))),
+                        dbc.Col(html.Div("Dynamic time series")),
+                    ]),
+                    dbc.Row([
+                        dbc.Col(html.Div(dvc.Vega(id='solar-plot', spec={}))),
+                        dbc.Col(html.Div("Dynamic time series")),
                     ])
                 ]),
             ]
@@ -165,6 +177,42 @@ def update_precipitation_plot(year_range):
     max_time = datetime(year_range[1], 1, 1)
     print(min_time, max_time)
     filtered_df = filter_aggregation_col(df, 'precipitation_sum', "YE", min_time, max_time)
+    fig = time_series_plot_altair(filtered_df, filtered_df.name)
+    return fig.to_dict()
+
+@app.callback(
+    Output('temp-plot', 'spec'),
+    [Input('year-slider', 'value')]
+)
+def update_temperature_plot(year_range):
+    min_time = datetime(year_range[0], 1, 1)
+    max_time = datetime(year_range[1], 1, 1)
+    print(min_time, max_time)
+    filtered_df = filter_aggregation_col(df, 'temperature_2m_max', "YE", min_time, max_time)
+    fig = time_series_plot_altair(filtered_df, filtered_df.name)
+    return fig.to_dict()
+
+@app.callback(
+    Output('wind-plot', 'spec'),
+    [Input('year-slider', 'value')]
+)
+def update_wind_plot(year_range):
+    min_time = datetime(year_range[0], 1, 1)
+    max_time = datetime(year_range[1], 1, 1)
+    print(min_time, max_time)
+    filtered_df = filter_aggregation_col(df, 'wind_speed_10m_max', "YE", min_time, max_time)
+    fig = time_series_plot_altair(filtered_df, filtered_df.name)
+    return fig.to_dict()
+
+@app.callback(
+    Output('solar-plot', 'spec'),
+    [Input('year-slider', 'value')]
+)
+def update_wind_plot(year_range):
+    min_time = datetime(year_range[0], 1, 1)
+    max_time = datetime(year_range[1], 1, 1)
+    print(min_time, max_time)
+    filtered_df = filter_aggregation_col(df, 'shortwave_radiation_sum', "YE", min_time, max_time)
     fig = time_series_plot_altair(filtered_df, filtered_df.name)
     return fig.to_dict()
 
