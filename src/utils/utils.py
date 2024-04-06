@@ -1,8 +1,32 @@
-from dash import Dash, dcc, callback, Output, Input, html
+
 import dash_bootstrap_components as dbc
+import dash_vega_components as dvc
+from dash import Dash, dcc, callback, Output, Input, html
+from datetime import date, datetime
 import pandas as pd
-from datetime import datetime
 import altair as alt
+
+
+def generateDatePickerDiv(valueName, labelName, 
+                          start_date, end_date
+                          ):
+    return html.Div([
+        dbc.Label(labelName, className='filter_label'),
+        dcc.DatePickerRange(
+            id=valueName,
+            clearable=True,
+            with_portal=True,
+            start_date=date(2013, 1, 1),
+            end_date=date(2023,1,1)
+        )
+    ])
+
+
+def generateChart(id, spec):
+    return dbc.Col([
+            dvc.Vega(id=id, spec=spec, style={'width': '100%' }),
+        ])
+
 
 var_dict_swapped = {
     'temperature_2m_max': 'Maximum temperature (C) at 2m',
@@ -53,7 +77,7 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
     # Create the Altair line chart
     chart = alt.Chart(df).mark_line(
         point=True,  # Add points to the line for each data point
-        color='steelblue',  # Line color
+        color='#214d2e',  # Line color
         size=2  # Line thickness
     ).encode(
         x=alt.X('date:T', title='Date'),  # Temporal axis (time)
@@ -65,16 +89,20 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
         height=300  # Height of the chart
     ).configure_title(
         fontSize=15,
-        font='Courier',
+        #font='Courier',
         anchor='start',
         color='gray'
     ).configure_view(
-        strokeOpacity=0  # Remove the border around the chart
+        stroke=None  # Remove the border around the chart
+    ).configure_axis(
+        grid=False,
+        labelFontSize=10
     )
     return chart
 
 def generateDropDownrDiv(valueName, labelName, options=[], value=None):
     return html.Div([
         dbc.Label(labelName, className='filter_label'),
-        dcc.Dropdown(id=valueName, options=options, value=value, className='filter_input'),
+        dcc.Dropdown(id=valueName, options=options, value=value, className='filter_input', style={
+            'font-size': "80%"},),
     ])
