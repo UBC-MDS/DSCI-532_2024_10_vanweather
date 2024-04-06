@@ -18,6 +18,24 @@ df = pd.read_csv('data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='lat
 df['date'] = pd.to_datetime(df.index)
 df['year'] = df['date'].dt.year
 
+var_dict = {
+    'Maximum temperature (C) at 2m':'temperature_2m_max',
+    'Minimum temperature (C) at 2m':'temperature_2m_min',
+    'Mean temperature (C) at 2m':'temperature_2m_mean',
+    'Maximum apparent temperature (C)':'apparent_temperature_max',
+    'Minimum apparent temperature (C)':'apparent_temperature_min',
+    'Mean apparent temperature (C)':'apparent_temperature_mean',
+    'Sum of precipitation (mm)':'precipitation_sum',
+    'Sum of rain (mm)':'rain_sum',
+    'Sum of snowfall (cm)':'snowfall_sum',
+    'Hours of precipitation':'precipitation_hours',
+    'Maximum wind speed':'wind_speed_10m_max',
+    'Maximum wind gust':'wind_gusts_10m_max',
+    'Sum of shortwave radiation (MJ)':'shortwave_radiation_sum',
+    'Evapotranspiration (mm)':'et0_fao_evapotranspiration'
+}
+
+
 # Date slider object
 dateslider = dcc.RangeSlider(
     id='year-slider',
@@ -38,27 +56,27 @@ dropdown_time = html.Div(generateDropDownrDiv(
 dropdown_temp = html.Div(generateDropDownrDiv(
     valueName="temp_var",
     labelName='Temperature variable to visualize',
-    options=['temperature_2m_max','temperature_2m_min','temperature_2m_mean',
-             'apparent_temperature_max','apparent_temperature_min','apparent_temperature_mean'],
-    value='apparent_temperature_mean')
+    options=['Maximum temperature (C) at 2m', 'Minimum temperature (C) at 2m', 'Mean temperature (C) at 2m',
+             'Maximum apparent temperature (C)', 'Minimum apparent temperature (C)', 'Mean apparent temperature (C)'],
+    value='Mean apparent temperature (C)')
 )
 dropdown_precipitation = html.Div(generateDropDownrDiv(
     valueName="precipitation_var",
     labelName='Precipitation variable to visualize',
-    options=['precipitation_sum','rain_sum','snowfall_sum','precipitation_hours'],
-    value='precipitation_sum')
+    options=['Sum of precipitation (mm)', 'Sum of rain (mm)', 'Sum of snowfall (cm)', 'Hours of precipitation'],
+    value='Sum of precipitation (mm)')
 )
 dropdown_wind = html.Div(generateDropDownrDiv(
     valueName="wind_var",
     labelName='Wind variable to visualize',
-    options=['wind_speed_10m_max','wind_gusts_10m_max'],
-    value='wind_speed_10m_max')
+    options=['Maximum wind speed','Maximum wind gust'],
+    value='Maximum wind speed')
 )
 dropdown_sun = html.Div(generateDropDownrDiv(
     valueName="sun_var",
     labelName='Sun variable to visualize',
-    options=['shortwave_radiation_sum','et0_fao_evapotranspiration'],
-    value='shortwave_radiation_sum')
+    options=['Sum of shortwave radiation (MJ)','Evapotranspiration (mm)'],
+    value='Sum of shortwave radiation (MJ)')
 )
 
 
@@ -159,7 +177,8 @@ def update_precipitation_plot(year_range, agg_time, var):
     min_time = datetime(year_range[0], 1, 1)
     max_time = datetime(year_range[1], 1, 1)
     agg_t = agg_dict[agg_time]
-    filtered_df = filter_aggregation_col(df, var, agg_t, min_time, max_time)
+    var_t = var_dict[var]
+    filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     fig = time_series_plot_altair(filtered_df, filtered_df.name)
     return fig.to_dict()
 
@@ -173,7 +192,8 @@ def update_temperature_plot(year_range, agg_time, var):
     min_time = datetime(year_range[0], 1, 1)
     max_time = datetime(year_range[1], 1, 1)
     agg_t = agg_dict[agg_time]
-    filtered_df = filter_aggregation_col(df, var, agg_t, min_time, max_time)
+    var_t = var_dict[var]
+    filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     fig = time_series_plot_altair(filtered_df, filtered_df.name)
     return fig.to_dict()
 
@@ -187,7 +207,8 @@ def update_wind_plot(year_range, agg_time, var):
     min_time = datetime(year_range[0], 1, 1)
     max_time = datetime(year_range[1], 1, 1)
     agg_t = agg_dict[agg_time]
-    filtered_df = filter_aggregation_col(df, var, agg_t, min_time, max_time)
+    var_t = var_dict[var]
+    filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     fig = time_series_plot_altair(filtered_df, filtered_df.name)
     return fig.to_dict()
 
@@ -201,7 +222,8 @@ def update_wind_plot(year_range, agg_time, var):
     min_time = datetime(year_range[0], 1, 1)
     max_time = datetime(year_range[1], 1, 1)
     agg_t = agg_dict[agg_time]
-    filtered_df = filter_aggregation_col(df, var, agg_t, min_time, max_time)
+    var_t = var_dict[var]
+    filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     fig = time_series_plot_altair(filtered_df, filtered_df.name)
     return fig.to_dict()
 

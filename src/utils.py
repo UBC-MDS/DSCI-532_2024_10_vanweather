@@ -4,6 +4,23 @@ import pandas as pd
 from datetime import datetime
 import altair as alt
 
+var_dict_swapped = {
+    'temperature_2m_max': 'Maximum temperature (C) at 2m',
+    'temperature_2m_min': 'Minimum temperature (C) at 2m',
+    'temperature_2m_mean': 'Mean temperature (C) at 2m',
+    'apparent_temperature_max': 'Maximum apparent temperature (C)',
+    'apparent_temperature_min': 'Minimum apparent temperature (C)',
+    'apparent_temperature_mean': 'Mean apparent temperature (C)',
+    'precipitation_sum': 'Sum of precipitation (mm)',
+    'rain_sum': 'Sum of rain (mm)',
+    'snowfall_sum': 'Sum of snowfall (cm)',
+    'precipitation_hours': 'Hours of precipitation',
+    'wind_speed_10m_max': 'Maximum wind speed',
+    'wind_gusts_10m_max': 'Maximum wind gust',
+    'shortwave_radiation_sum': 'Sum of shortwave radiation (MJ)',
+    'et0_fao_evapotranspiration': 'Evapotranspiration (mm)'
+}
+
 def filter_aggregation_col(df, column_name, agg_time="YE", start_time="2000-01-01", end_time="2023-01-01"):
     start_time = pd.to_datetime(start_time)
     end_time = pd.to_datetime(end_time)
@@ -40,10 +57,10 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
         size=2  # Line thickness
     ).encode(
         x=alt.X('date:T', title='Date'),  # Temporal axis (time)
-        y=alt.Y(f'{column_name}:Q', title='Temperature (°C)'),  # Quantitative axis (the data)
-        tooltip=[alt.Tooltip('date:T', title='Date'), alt.Tooltip(f'{column_name}:Q', title='Temperature (°C)')]  # Tooltip for interactivity
+        y=alt.Y(f'{column_name}:Q', title=var_dict_swapped[column_name]),  # Quantitative axis (the data)
+        tooltip=[alt.Tooltip('date:T', title='Date'), alt.Tooltip(f'{column_name}:Q', title=var_dict_swapped[column_name])]  # Tooltip for interactivity
     ).properties(
-        title=f'{column_name.capitalize()} over Time',  # Chart title
+        title=f'{var_dict_swapped[column_name].capitalize()} over Time',  # Chart title
         width=500,  # Width of the chart
         height=300  # Height of the chart
     ).configure_title(
