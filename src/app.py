@@ -1,14 +1,12 @@
-from dash import Dash, dcc, callback, Output, Input, html
-from vega_datasets import data
-import altair as alt
+from utils.utils import *
+from datetime import datetime
 import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
-import pandas as pd
-import plotly.graph_objs as go
-import plotly.express as px
-import matplotlib.pyplot as plt
-from utils import *
+from dash import Dash, dcc, callback, Output, Input, html
 from datetime import date, datetime
+import pandas as pd
+import altair as alt
+
 
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
