@@ -1,4 +1,4 @@
-from utils.utils import *
+from func import *
 from datetime import datetime
 import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
@@ -7,12 +7,14 @@ from datetime import date, datetime
 import pandas as pd
 import altair as alt
 
+# import sys
+# sys.path.append('src/')
 
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
-df = pd.read_csv('data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1', index_col='date', parse_dates=True)
+df = pd.read_csv('../data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1', index_col='date', parse_dates=True)
 df['date'] = pd.to_datetime(df.index)
 df['year'] = df['date'].dt.year
 
