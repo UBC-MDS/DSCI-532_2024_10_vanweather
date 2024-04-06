@@ -7,6 +7,8 @@ from datetime import date, datetime
 import pandas as pd
 import altair as alt
 
+import sys
+sys.path.append('src/')
 
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
