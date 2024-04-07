@@ -61,4 +61,4 @@ Please refer to our contributing [guidelines](https://github.com/UBC-MDS/DSCI-53
 This project is licensed under the terms of the [MIT license](https://github.com/UBC-MDS/DSCI-532_2024_10_vanweather/blob/main/LICENSE).
 
 ## Contributors
-@AnuBanga, @czwcandy @sivakornchong @WeilinHan8
+[@AnuBanga](https://github.com/AnuBanga), [@czwcandy](https://github.com/czwcandy) [@sivakornchong](https://github.com/sivakornchong) [@WeilinHan8](https://github.com/WeilinHan8)
