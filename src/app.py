@@ -38,9 +38,9 @@ var_dict = {
     'Evapotranspiration (mm)':'et0_fao_evapotranspiration'
 }
 
-temp_increase = 2
-days_over_40 = 32
-preci_decrease = 20
+temp_increase = 0.2
+days_over_30 = 12
+preci_decrease = 300
 
 # Import customized css file
 html.Div(id='Header', children=[
@@ -98,11 +98,11 @@ mainContainer = dbc.Container(
                             ], className='kpi_card'),
                             html.Div([
                                 html.Div('In past 10 years, temperature of'),
-                                html.Div(f'{days_over_40} Days', className="kpi_highlight"),
-                                html.Div('are over 40°C.'),
+                                html.Div(f'{days_over_30} Days', className="kpi_highlight"),
+                                html.Div('are over 30°C.'),
                             ], className='kpi_card'),
                             html.Div([
-                                html.Div('Total Number of Sales'),
+                                html.Div('Precipitation decreased by'),
                                 html.Div(f'{preci_decrease}mm', className="kpi_highlight"),
                                 html.Div('In past 10 years.'),
                             ], className='kpi_card'),
