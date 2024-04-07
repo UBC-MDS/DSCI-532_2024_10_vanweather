@@ -9,10 +9,12 @@ Climate conditions in the Vancouver region have undergone significant changes ov
 #### Solution
 VanWeather dashboard addresses the challenge of understanding and adapting to climate change impacts in Vancouver by providing an interactive platform that integrates historical and recent meteorological data. This dashboard allows users to analyze and visualize climate trends and patterns, facilitating informed discussions, policy formulation, and community actions to address and adapt to the evolving climate dynamics at the local level. By empowering stakeholders with accessible insights into Vancouver's changing climate, the VanWeather dashboard supports proactive measures and sustainable decision-making to enhance preparedness for climate-related challenges in the city.
 
-Our dashboard visualizes: *** Add GIF here ***
+## The Dashboard
+<img src="img/demo.gif" width="1000"/>
 
 ## Get Involved
 Click [here](https://dsci-532-2024-10-vanweather.onrender.com/) to start using VanWeather dashboard.
+
 To get started with the dashboard, choose your desired date range and utilize the aggregation options (daily, weekly, monthly, yearly) on the filter. This will allow you to view weather trends for temperature, wind, precipitation, and sunlight in Vancouver. Explore and analyze the weather trends and patterns over the years in the city of Vancouver.
 If you have any feedback or input for our team, you can reach out via opening a [new issue](https://github.com/UBC-MDS/DSCI-532_2024_10_vanweather/issues/new) in this repository.
 
