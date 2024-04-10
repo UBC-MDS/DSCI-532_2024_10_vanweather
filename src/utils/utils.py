@@ -1,4 +1,3 @@
-
 import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
 from dash import Dash, dcc, callback, Output, Input, html
