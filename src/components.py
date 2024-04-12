@@ -42,7 +42,8 @@ filterContainer = html.Div([
         valueName="sun_var",
         labelName='Sun variables',
         options=['Sum of shortwave radiation (MJ)','Evapotranspiration (mm)'],
-        value='Sum of shortwave radiation (MJ)')
+        value='Sum of shortwave radiation (MJ)'),
+    html.Button('Reload Dataframe', id='reload-button', n_clicks=0)
 ], className='filter_container')
 
 mainContainer = dbc.Container(
