@@ -1,4 +1,4 @@
-from utils import filter_aggregation_col, time_series_plot_altair
+from utils import filter_aggregation_col, time_series_plot_altair, RefreshData
 from datetime import datetime
 from dash import Dash, dcc, callback, Output, Input, html
 from datetime import date, datetime
