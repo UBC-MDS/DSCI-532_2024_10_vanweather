@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv('../data/raw/van_weather_1974-01-01_2024-03-15.csv', encoding='latin-1', index_col='date', parse_dates=True)
+df = pd.read_csv('../data/raw/van_weather_pipe.csv', encoding='latin-1', index_col='date', parse_dates=True)
 df['date'] = pd.to_datetime(df.index)
 df['year'] = df['date'].dt.year
 

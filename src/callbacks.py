@@ -122,3 +122,13 @@ def update_solar_plot(start_date, end_date, agg_time, var):
     filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     altplot = time_series_plot_altair(filtered_df, filtered_df.name)
     return altplot.to_dict(format="vega")
+
+## Refresh button to get data
+@callback(
+    Output('reload-button', 'n_clicks'),
+    [Input('reload-button', 'n_clicks')]
+)
+def reload_dataframe_callback(n_clicks):
+    global df
+    df = RefreshData()
+    return n_clicks
