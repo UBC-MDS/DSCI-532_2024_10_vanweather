@@ -75,7 +75,6 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
 
     # Create the Altair line chart
     chart = alt.Chart(df).mark_line(
-        point=True,  # Add points to the line for each data point
         color='#214d2e',  # Line color
         size=2  # Line thickness
     ).encode(
