@@ -1,9 +1,10 @@
-from utils import filter_aggregation_col, time_series_plot_altair, RefreshData
+from utils import filter_aggregation_col, time_series_plot_altair
 from datetime import datetime
 from dash import Dash, dcc, callback, Output, Input, html
 from datetime import date, datetime
 import altair as alt
 from data import df, var_dict
+alt.data_transformers.enable('vegafusion')
 
 # Date option
 agg_dict = {'Day': 'D', "Week": 'W', "Month": "ME", "Year": "YE"}
@@ -35,7 +36,7 @@ def update_temperature_plot(start_date, end_date):
             grid=False
         ).configure_view(
             stroke=None
-        ).interactive().to_dict()
+        ).interactive().to_dict(format="vega")
     )
 
 @callback(
@@ -57,7 +58,7 @@ def update_precipitation_plot(start_date, end_date, agg_time, var):
     var_t = var_dict[var]
     filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     altplot = time_series_plot_altair(filtered_df, filtered_df.name)
-    return altplot.to_dict()
+    return altplot.to_dict(format="vega")
 
 @callback(
     Output('temp-plot', 'spec'),
@@ -78,7 +79,7 @@ def update_temp_plot(start_date, end_date, agg_time, var):
     var_t = var_dict[var]
     filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     altplot = time_series_plot_altair(filtered_df, filtered_df.name)
-    return altplot.to_dict()
+    return altplot.to_dict(format="vega")
 
 @callback(
     Output('wind-plot', 'spec'),
@@ -99,7 +100,7 @@ def update_wind_plot(start_date, end_date, agg_time, var):
     var_t = var_dict[var]
     filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     altplot = time_series_plot_altair(filtered_df, filtered_df.name)
-    return altplot.to_dict()
+    return altplot.to_dict(format="vega")
 
 @callback(
     Output('solar-plot', 'spec'),
