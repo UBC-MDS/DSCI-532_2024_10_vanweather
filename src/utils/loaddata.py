@@ -146,4 +146,5 @@ def RefreshData():
     end_date = str(dt)
     df = get_vancouver_data("https://archive-api.open-meteo.com/v1/archive", "1974-01-01", end_date,
                        "../data/raw", create_csv=True)
+    print(f'Data refreshed and download from 1974-01-01 to {end_date}')
     return df
