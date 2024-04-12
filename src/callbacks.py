@@ -121,7 +121,7 @@ def update_solar_plot(start_date, end_date, agg_time, var):
     var_t = var_dict[var]
     filtered_df = filter_aggregation_col(df, var_t, agg_t, min_time, max_time)
     altplot = time_series_plot_altair(filtered_df, filtered_df.name)
-    return altplot.to_dict()
+    return altplot.to_dict(format="vega")
 
 ## Refresh button to get data
 @callback(
