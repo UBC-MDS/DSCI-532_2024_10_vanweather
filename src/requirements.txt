@@ -18,5 +18,5 @@ vegafusion-python-embed==1.6.*
 zipp==3.17.*
 gunicorn==21.2.*
 vega-datasets==0.9.*
-vegafusion==1.6.*
-vegafusion-python-embed==1.6.*
+vega==3.4.*
+vegalite==4.14.*
