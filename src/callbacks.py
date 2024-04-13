@@ -1,4 +1,4 @@
-from utils import filter_aggregation_col, time_series_plot_altair, RefreshData
+from utils import filter_aggregation_col, time_series_plot_altair, RefreshData, temperature_plot_altair
 from datetime import datetime
 from dash import Dash, dcc, callback, Output, Input, html
 from datetime import date, datetime
@@ -22,22 +22,11 @@ def update_temperature_plot(start_date, end_date):
     if not end_date:
         end_date = '2023-01-01'
 
-    filtered_df = df[(df['date'] >= datetime.strptime(start_date, '%Y-%m-%d')) & (df['date'] <= datetime.strptime(end_date, '%Y-%m-%d'))]
-    print(filtered_df.shape)
-    return (
-        alt.Chart(filtered_df, title='Apparant Temperature Change (°C)').mark_line(opacity=0.8, color='#214d2e').encode(
-            alt.X('date').title('Date'),
-            alt.Y('apparent_temperature_mean').title('apparent temperature'),
-        ).properties(
-            width=600,
-            height=100
-        ).configure_axis(
-            labelFontSize=10,
-            grid=False
-        ).configure_view(
-            stroke=None
-        ).interactive().to_dict(format="vega")
-    )
+    min_time = datetime.strptime(start_date, '%Y-%m-%d')#.date()
+    max_time = datetime.strptime(end_date, '%Y-%m-%d')#.date()
+    filtered_df = df.loc[min_time:max_time]
+    altplot = temperature_plot_altair(filtered_df)
+    return altplot.to_dict(format="vega")
 
 @callback(
     Output('precipitation-plot', 'spec'),

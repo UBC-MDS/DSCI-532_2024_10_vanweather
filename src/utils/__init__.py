@@ -1,2 +1,2 @@
-from .utils import generateDatePickerDiv, generateChart, filter_aggregation_col, time_series_plot_altair, generateDropDownrDiv
+from .utils import generateDatePickerDiv, generateChart, filter_aggregation_col, time_series_plot_altair, generateDropDownrDiv,temperature_plot_altair
 from .loaddata import RefreshData

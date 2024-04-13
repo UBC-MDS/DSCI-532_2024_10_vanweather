@@ -99,6 +99,22 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
     )
     return chart
 
+def temperature_plot_altair(df):
+    chart = alt.Chart(df, title='Apparant Temperature Change (°C)').mark_line(opacity=0.8, color='#214d2e').encode(
+            alt.X('date:T').title('Date'),
+            alt.Y('apparent_temperature_mean:Q').title('apparent temperature'),
+        ).properties(
+            width=600,
+            height=100
+        ).configure_axis(
+            labelFontSize=10,
+            grid=False
+        ).configure_view(
+            stroke=None
+        ).interactive()
+    return chart
+
+
 def generateDropDownrDiv(valueName, labelName, options=[], value=None):
     return html.Div([
         dbc.Label(labelName, className='filter_label'),
