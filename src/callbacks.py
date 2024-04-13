@@ -36,6 +36,7 @@ def update_temperature_plot(start_date, end_date):
 # For first kpi
 @callback(
     Output('temp-change', 'children'),
+    Output('temp-prev-period-info', 'children'),
     Input('dateRange', 'start_date'),
     Input('dateRange', 'end_date')
 )
@@ -53,8 +54,10 @@ def temp_change_cal(start_date, end_date):
     temp_select = select_period['temperature_2m_mean'].mean()
     prev_period = df.loc[min_time-time_diff:min_time]
     temp_prev = prev_period['temperature_2m_mean'].mean()
-    str_change = round(temp_select - temp_prev,2)
-    return str_change
+    str_change = str(round(temp_select - temp_prev, 2))
+    days = time_diff.days
+    output_str = f'(mean past {days} vs previous {days} days)'
+    return str_change, output_str
 
 # For second kpi
 @callback(
@@ -82,6 +85,7 @@ def temp_over30_cal(start_date, end_date):
 # For third kpi
 @callback(
     Output('preci-change', 'children'),
+    Output('pre-prev-period-info', 'children'),
     Input('dateRange', 'start_date'),
     Input('dateRange', 'end_date')
 )
@@ -101,7 +105,11 @@ def preci_cal(start_date, end_date):
     prev_period = df.loc[min_time-time_diff:min_time]
     preci_prev = prev_period['precipitation_sum'].sum()
     str_change = round(preci_select-preci_prev,0)
-    return str_change
+
+    days = time_diff.days
+    output_str = f'(mean past {days} vs previous {days} days)'
+
+    return str_change, output_str
 
 # dynamic precipitation plot
 @callback(

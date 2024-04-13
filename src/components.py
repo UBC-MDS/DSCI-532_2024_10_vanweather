@@ -54,19 +54,19 @@ mainContainer = dbc.Container(
                     dbc.Col([
                         html.Div([
                             html.Div([
-                                html.Div('Temperature changes(°C):'),
-                                html.Div(temp_change, id='temp-change', className="kpi_highlight"),
-                                html.Div('(compare to previous period)'),
-                            ], className='kpi_card'),
-                            html.Div([
                                 html.Div('Days over 30°C:'),
                                 html.Div(temp_over_30, id='temp-over-30', className="kpi_highlight"),
                                 html.Div('(during selected period)'),
                             ], className='kpi_card'),
                             html.Div([
+                                html.Div('Temperature changes(°C):'),
+                                html.Div(f'{temp_change:.2f}', id='temp-change', className="kpi_highlight"),
+                                html.Div(id='temp-prev-period-info'),
+                            ], className='kpi_card'),
+                            html.Div([
                                 html.Div('Precipitation changes(mm):'),
                                 html.Div(preci_change, id='preci-change', className="kpi_highlight"),
-                                html.Div('(compare to previous period)'),
+                                html.Div(id='pre-prev-period-info'),
                             ], className='kpi_card'),
                         ],
                             style={'display': 'flex', 'justify-content': 'space-around', 'align-items': 'center'}
