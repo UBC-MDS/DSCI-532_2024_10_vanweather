@@ -15,8 +15,8 @@ def generateDatePickerDiv(valueName, labelName,
             id=valueName,
             clearable=True,
             with_portal=True,
-            start_date=date(2013, 1, 1),
-            end_date=date(2023,1,1)
+            start_date=date(2014, 1, 1),
+            end_date=date(2024,1,1)
         )
     ])
 
@@ -84,7 +84,7 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
     ).properties(
         title=f'{var_dict_swapped[column_name].capitalize()} over Time',  # Chart title
         width=500,  # Width of the chart
-        height=300  # Height of the chart
+        height=200  # Height of the chart
     ).configure_title(
         fontSize=15,
         #font='Courier',
@@ -102,9 +102,15 @@ def temperature_plot_altair(df):
     chart = alt.Chart(df, title='Apparant Temperature Change (°C)').mark_line(opacity=0.8, color='#214d2e').encode(
             alt.X('date:T').title('Date'),
             alt.Y('apparent_temperature_mean:Q').title('apparent temperature'),
+            tooltip=[alt.Tooltip('date:T', title='Date'), alt.Tooltip(f'apparent_temperature_mean:Q', title='Mean Apparant Temperature')]
         ).properties(
             width=600,
             height=100
+        ).configure_title(
+            fontSize=13,
+            #font='Courier',
+            anchor='start',
+            color='gray'
         ).configure_axis(
             labelFontSize=10,
             grid=False

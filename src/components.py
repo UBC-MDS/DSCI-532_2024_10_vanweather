@@ -3,12 +3,12 @@ import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
 from dash import html
 
-from_date = '2013-01-01'
-to_date = '2023-01-01'
+from_date = '2014-01-01'
+to_date = '2024-01-01'
 
-temp_increase = 0.2
-days_over_30 = 12
-preci_decrease = 300
+temp_change = 0
+temp_over_30 = 0
+preci_change = 0
 
 # Layout
 filterContainer = html.Div([
@@ -49,24 +49,24 @@ filterContainer = html.Div([
 mainContainer = dbc.Container(
     [dbc.Col(
             [
-                dbc.Row(html.Div("VanWeather - Vancouver Climate Extreams Dash", className='title_bucket')),
+                dbc.Row(html.Div("VanWeather - Vancouver Climate Tracker", className='title_bucket')),
                 dbc.Row([
                     dbc.Col([
                         html.Div([
                             html.Div([
-                                html.Div('Temperature increased by'),
-                                html.Div(f'{temp_increase}°C', className="kpi_highlight"),
-                                html.Div('In past 10 years.'),
+                                html.Div('Days over 30°C:'),
+                                html.Div(temp_over_30, id='temp-over-30', className="kpi_highlight"),
+                                html.Div('(during selected period)'),
                             ], className='kpi_card'),
                             html.Div([
-                                html.Div('In past 10 years, temperature of'),
-                                html.Div(f'{days_over_30} Days', className="kpi_highlight"),
-                                html.Div('are over 30°C.'),
+                                html.Div('Temperature changes(°C):'),
+                                html.Div(f'{temp_change:.2f}', id='temp-change', className="kpi_highlight"),
+                                html.Div(id='temp-prev-period-info'),
                             ], className='kpi_card'),
                             html.Div([
-                                html.Div('Precipitation decreased by'),
-                                html.Div(f'{preci_decrease}mm', className="kpi_highlight"),
-                                html.Div('In past 10 years.'),
+                                html.Div('Precipitation changes(mm):'),
+                                html.Div(preci_change, id='preci-change', className="kpi_highlight"),
+                                html.Div(id='pre-prev-period-info'),
                             ], className='kpi_card'),
                         ],
                             style={'display': 'flex', 'justify-content': 'space-around', 'align-items': 'center'}
