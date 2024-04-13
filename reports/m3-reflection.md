@@ -10,13 +10,17 @@ Our present dashboard (as per the attached image) offers an engaging interface f
 
 #### Feedback Implementation
 
-During this milestone, we tackled various feedback points provided by our instructor, Joel:
+During this milestone, we tackled various feedback points provided by our instructor, Joel and our lab discussion:
 
 -   **Enhanced Data Handling**: By adopting Vega-Lite, we prepped the dashboard for displaying more extensive datasets, a full realization scheduled for Milestone 4.
 
 -   **Unified Aesthetics**: Aligning the visual elements, we eliminated the blue points for consistency.
 
 -   **Design Fine-Tuning**: Adjustments were made to improve the user interface with better visual spacing and legibility, alongside resizing dropdowns and charts.
+
+-   **Widget Control Clarifications**: Distinguishing between global and local controls will be refined to enhance user intuitiveness.
+
+-   **Further Visual Adjustments**: Additional aesthetic enhancements, such as aligning titles and adding background colors, are on our agenda for further polish.
 
 While these enhancements were key, we also noted points for implementation in Milestone 4 due to the condensed timeframe of this week.
 
