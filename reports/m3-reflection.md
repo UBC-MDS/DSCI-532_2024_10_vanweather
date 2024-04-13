@@ -26,10 +26,6 @@ Given the constraints of this milestone's timeframe, we have postponed certain f
 
 -   **Dynamic Text Updates**: We aim to enable text within cards to dynamically reflect the data associated with user-selected time periods for more contextual clarity.
 
--   **Widget Control Clarifications**: Distinguishing between global and local controls will be refined to enhance user intuitiveness.
-
--   **Further Visual Adjustments**: Additional aesthetic enhancements, such as aligning titles and adding background colors, are on our agenda for further polish.
-
 These deferrals were strategic, ensuring that we prioritize essential functionality and stability in the current phase.
 
 #### Reflections and Forward Look
