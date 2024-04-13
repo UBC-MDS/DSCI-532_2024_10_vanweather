@@ -5,7 +5,7 @@ from dash import Dash, html
 
 
 # Initiatlize the app
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], title="VanWeather Climate Tracker")
 server = app.server
 
 # Import customized css file
