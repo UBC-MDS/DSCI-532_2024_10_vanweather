@@ -7,6 +7,8 @@ from dash import Dash, html
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], title="VanWeather Climate Tracker")
 server = app.server
+app.title = 'VanWeather'
+#app._favicon = ()
 
 # Import customized css file
 html.Div(id='Header', children=[
