@@ -206,5 +206,7 @@ def update_solar_plot(start_date, end_date, agg_time, var):
 )
 def reload_dataframe_callback(n_clicks):
     global df
-    df = RefreshData()
+    # print(n_clicks)
+    if n_clicks != 0:
+        df = RefreshData()
     return n_clicks
