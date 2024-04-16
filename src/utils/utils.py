@@ -14,9 +14,10 @@ def generateDatePickerDiv(valueName, labelName,
         dcc.DatePickerRange(
             id=valueName,
             clearable=True,
-            with_portal=True,
             start_date=date(2014, 1, 1),
-            end_date=date(2024,1,1)
+            end_date=date(2024,1,1),
+            # calendar_orientation='vertical'
+            with_portal=True,
         )
     ])
 

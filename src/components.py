@@ -12,6 +12,7 @@ preci_change = 0
 
 # Layout
 filterContainer = html.Div([
+    html.Button('Reload Dataframe', id='reload-button', n_clicks=0, className='reload_button'),
     generateDatePickerDiv(
         valueName='dateRange', 
         labelName='Date Range',
@@ -43,7 +44,7 @@ filterContainer = html.Div([
         labelName='Sun variables',
         options=['Sum of shortwave radiation (MJ)','Evapotranspiration (mm)'],
         value='Sum of shortwave radiation (MJ)'),
-    html.Button('Reload Dataframe', id='reload-button', n_clicks=0)
+    html.Div("Developers: Sivakorn (Oak) Chong, Anu Banga, Weilin Han, Katherine Chen",className='author_text')
 ], className='filter_container')
 
 mainContainer = dbc.Container(
@@ -56,17 +57,17 @@ mainContainer = dbc.Container(
                             html.Div([
                                 html.Div('Days over 30°C:'),
                                 html.Div(temp_over_30, id='temp-over-30', className="kpi_highlight"),
-                                html.Div('(during selected period)'),
+                                html.Div('(during selected period)', className='kpi_para'),
                             ], className='kpi_card'),
                             html.Div([
                                 html.Div('Temperature changes(°C):'),
                                 html.Div(f'{temp_change:.2f}', id='temp-change', className="kpi_highlight"),
-                                html.Div(id='temp-prev-period-info'),
+                                html.Div(id='temp-prev-period-info', className='kpi_para'),
                             ], className='kpi_card'),
                             html.Div([
                                 html.Div('Precipitation changes(mm):'),
                                 html.Div(preci_change, id='preci-change', className="kpi_highlight"),
-                                html.Div(id='pre-prev-period-info'),
+                                html.Div(id='pre-prev-period-info', className='kpi_para'),
                             ], className='kpi_card'),
                         ],
                             style={'display': 'flex', 'justify-content': 'space-around', 'align-items': 'center'}
