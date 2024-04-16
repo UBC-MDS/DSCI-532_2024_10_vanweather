@@ -85,5 +85,11 @@ mainContainer = dbc.Container(
                         dbc.Col(html.Div(dvc.Vega(id='solar-plot', spec={})), width=6),
                     ])
                 ]),
+                dbc.Row([
+                    dbc.Row(html.Div("VanWeather is developed by Sivakorn (Oak) Chong, Anu Banga, Weilin Han, Katherine Chen.", className='footer')),
+                    dbc.Row(html.Div("The application is an interactive dashboard designed to analyze and visualize weather patterns in Vancouver.", className='footer')),
+                    dbc.Row([html.Div([html.A("Link to the Github Repo", href="https://github.com/UBC-MDS/DSCI-532_2024_10_vanweather/", className='footer-link')], className='footer')]),
+                    dbc.Row(html.Div("Dashboard latest update on ![release](https://img.shields.io/github/release-date/UBC-MDS/DSCI-532_2024_10_vanweather)", className='footer'))
+                ]),
             ]
         )])

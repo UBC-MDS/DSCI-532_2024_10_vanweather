@@ -92,6 +92,11 @@
     .chart_container {
         margin-top: 20px;
     }
+    .footer {
+        /*font-weight: bold;*/
+        font-size: 0.8em;
+        color: #214d2e;
+    }
 }
 .DayPicker_1 {
     left: 12.5vw;
