@@ -43,8 +43,7 @@ filterContainer = html.Div([
         valueName="sun_var",
         labelName='Sun variables',
         options=['Sum of shortwave radiation (MJ)','Evapotranspiration (mm)'],
-        value='Sum of shortwave radiation (MJ)'),
-    html.Div("Developers: Sivakorn (Oak) Chong, Anu Banga, Weilin Han, Katherine Chen",className='author_text')
+        value='Sum of shortwave radiation (MJ)')
 ], className='filter_container')
 
 mainContainer = dbc.Container(
