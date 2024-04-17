@@ -35,13 +35,13 @@ var_dict_swapped = {
     'apparent_temperature_max': 'Maximum apparent temperature (C)',
     'apparent_temperature_min': 'Minimum apparent temperature (C)',
     'apparent_temperature_mean': 'Mean apparent temperature (C)',
-    'precipitation_sum': 'Sum of precipitation (mm)',
-    'rain_sum': 'Sum of rain (mm)',
-    'snowfall_sum': 'Sum of snowfall (cm)',
+    'precipitation_sum': 'Daily cumulative precipitation (mm)',
+    'rain_sum': 'Daily cumulative rain (mm)',
+    'snowfall_sum': 'Daily cumulative snowfall (cm)',
     'precipitation_hours': 'Hours of precipitation',
     'wind_speed_10m_max': 'Maximum wind speed',
     'wind_gusts_10m_max': 'Maximum wind gust',
-    'shortwave_radiation_sum': 'Sum of shortwave radiation (MJ)',
+    'shortwave_radiation_sum': 'Daily cumulative shortwave radiation (MJ)',
     'et0_fao_evapotranspiration': 'Evapotranspiration (mm)'
 }
 

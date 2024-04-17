@@ -72,7 +72,7 @@ mainContainer = dbc.Container(
                                 html.Div(id='temp-prev-period-info', className='kpi_para'),
                             ], className='kpi_card'),
                             html.Div([
-                                html.Div('Precipitation changes(mm):'),
+                                html.Div('Total Precipitation changes(mm/yr):'),
                                 html.Div(preci_change, id='preci-change', className="kpi_highlight"),
                                 html.Div(id='pre-prev-period-info', className='kpi_para'),
                             ], className='kpi_card'),
@@ -94,6 +94,7 @@ mainContainer = dbc.Container(
                 ]),
                 dbc.Row([
                     dbc.Row(html.Div("VanWeather is developed by Sivakorn (Oak) Chong, Anu Banga, Weilin Han, Katherine Chen.", className='footer')),
+                    dbc.Row(html.Div("Data is extracted from open source weather API (Open-Mateo) only from 1974 onwards", className='footer')),
                         dbc.Row(html.Div(["The application is an interactive dashboard designed to analyze and visualize weather patterns in Vancouver. ",
                             "For more information, check out the ", html.A("README", href="https://github.com/UBC-MDS/DSCI-532_2024_10_vanweather/blob/main/README.md", 
                                                                            className='footer-link', target="_blank"),"  file."], className='footer')),

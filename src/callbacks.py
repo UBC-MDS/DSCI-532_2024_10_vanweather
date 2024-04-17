@@ -55,8 +55,9 @@ def temp_change_cal(start_date, end_date):
     prev_period = df.loc[min_time-time_diff:min_time]
     temp_prev = prev_period['temperature_2m_mean'].mean()
     str_change = str(round(temp_select - temp_prev, 2))
-    days = time_diff.days
-    output_str = f'(mean past {days} vs previous {days} days)'
+    curr_period = select_period.shape[0]
+    temp_prev_period = prev_period.shape[0]
+    output_str = f'(mean past {curr_period} vs previous {temp_prev_period} days)'
     return str_change, output_str
 
 # For second kpi
@@ -101,13 +102,14 @@ def preci_cal(start_date, end_date):
     select_period = df.loc[min_time:max_time]
     time_diff = max_time - min_time
     select_period = df.loc[min_time:max_time]
-    preci_select = select_period['precipitation_sum'].sum()
+    preci_select = select_period['precipitation_sum'].mean()  # Change to mean because period may be different
     prev_period = df.loc[min_time-time_diff:min_time]
-    preci_prev = prev_period['precipitation_sum'].sum()
-    str_change = round(preci_select-preci_prev,0)
+    preci_prev = prev_period['precipitation_sum'].mean()  # Change to mean because period may be different
+    str_change = round((preci_select-preci_prev)*365,0)  # Convert to yearly total
 
-    days = time_diff.days
-    output_str = f'(mean past {days} vs previous {days} days)'
+    curr_period = select_period.shape[0]
+    prev_period_days = prev_period.shape[0]
+    output_str = f'(past {curr_period} vs previous {prev_period_days} days)'
 
     return str_change, output_str
 
