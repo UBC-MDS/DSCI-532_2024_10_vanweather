@@ -5,7 +5,11 @@ import os
 
 from retry_requests import retry
 from datetime import datetime, timedelta
+import functools
 
+# We will cache this function so that if user calls it again with the same output argument (same day),
+# API query will not be repeated
+@functools.lru_cache()
 def get_vancouver_data(url, start_date, end_date, write_to = "", create_csv = False):
     """
     Creates a new DataFrame with 18 columns, containing weather observations for each date between
@@ -147,4 +151,12 @@ def RefreshData():
     df = get_vancouver_data("https://archive-api.open-meteo.com/v1/archive", "1974-01-01", end_date,
                        "../data/raw", create_csv=True)
     print(f'Data refreshed and download from 1974-01-01 to {end_date}')
+
+    # This module will also include preprocessing of data.
+    # print(df.head())
+    df['year'] = df.index.year
+    df['date'] = pd.to_datetime(df.index)
+    df.to_parquet('../data/raw/preprocessed.parquet')
+
     return df
+

@@ -1,7 +1,7 @@
 from utils import generateDatePickerDiv, generateDropDownrDiv
 import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
-from dash import html
+from dash import html, dcc
 
 from_date = '2014-01-01'
 to_date = '2024-01-01'
@@ -12,7 +12,15 @@ preci_change = 0
 
 # Layout
 filterContainer = html.Div([
-    html.Button('Reload Dataframe', id='reload-button', n_clicks=0, className='reload_button'),
+    html.Div([
+        dcc.Loading(
+            id="loading-button",
+            type="Cube",
+            children=[
+                html.Button('Reload Dataframe', id='reload-button', n_clicks=0, className='reload_button')
+            ]
+        )
+    ]),
     generateDatePickerDiv(
         valueName='dateRange', 
         labelName='Date Range',
