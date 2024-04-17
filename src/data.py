@@ -1,8 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv('../data/raw/van_weather_pipe.csv', encoding='latin-1', index_col='date', parse_dates=True)
-df['date'] = pd.to_datetime(df.index)
-df['year'] = df['date'].dt.year
+df = pd.read_parquet('../data/raw/preprocessed.parquet')
 
 var_dict = {
     'Maximum temperature (C) at 2m':'temperature_2m_max',
