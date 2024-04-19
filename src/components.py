@@ -99,7 +99,8 @@ mainContainer = dbc.Container(
                             "For more information, check out the ", html.A("README", href="https://github.com/UBC-MDS/DSCI-532_2024_10_vanweather/blob/main/README.md", 
                                                                            className='footer-link', target="_blank"),"  file."], className='footer')),
                     dbc.Row([html.Div([html.A("Link to the Github Repo", href="https://github.com/UBC-MDS/DSCI-532_2024_10_vanweather/", className='footer-link')], className='footer')]),
-                    dbc.Row(html.Div("Dashboard latest update on ![release](https://img.shields.io/github/release-date/UBC-MDS/DSCI-532_2024_10_vanweather)", className='footer'))
+                    dbc.Row(html.Div(["Dashboard latest update on ",html.Img(src="https://img.shields.io/github/release-date/UBC-MDS/DSCI-532_2024_10_vanweather", className='footer-image', 
+                                                                             style={'height': '20px', 'margin-left': '5px'})],className='footer-text'),className='footer')
                 ]),
             ]
         )])
