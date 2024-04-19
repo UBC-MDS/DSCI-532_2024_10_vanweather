@@ -48,7 +48,7 @@ To use this dashboard on your local machine, please follow the instructions prov
 
 2. Create and activate the `conda` environment. Navigate to the root directory of the repository and execute the following command:
     ```console
-     conda env create --file environment.yml
+     conda env create --file environment.yaml
     ```
 
     ```console
