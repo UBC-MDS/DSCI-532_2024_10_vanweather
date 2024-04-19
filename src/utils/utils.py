@@ -79,7 +79,7 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
         color='#214d2e',  # Line color
         size=2  # Line thickness
     ).encode(
-        x=alt.X('date:T', title='Date'),  # Temporal axis (time)
+        x=alt.X('date:T', title=''),  # Temporal axis (time)
         y=alt.Y(f'{column_name}:Q', title=var_dict_swapped[column_name]),  # Quantitative axis (the data)
         tooltip=[alt.Tooltip('date:T', title='Date'), alt.Tooltip(f'{column_name}:Q', title=var_dict_swapped[column_name])]  # Tooltip for interactivity
     ).properties(
@@ -101,7 +101,7 @@ def time_series_plot_altair(df, column_name='temperature_2m_max'):
 
 def temperature_plot_altair(df):
     chart = alt.Chart(df, title='Apparant Temperature Change (°C)').mark_line(opacity=0.8, color='#214d2e').encode(
-            alt.X('date:T').title('Date'),
+            alt.X('date:T',  title=''),
             alt.Y('apparent_temperature_mean:Q').title('apparent temperature'),
             tooltip=[alt.Tooltip('date:T', title='Date'), alt.Tooltip(f'apparent_temperature_mean:Q', title='Mean Apparant Temperature')]
         ).properties(
